@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "**/node_modules/**": true,
+        "**/__pycache__/**": true,
+        "**/.git/**": true,
+        "**/.ruff_cache/**": true,
+        "**/venv/**": true,
+    }
+}

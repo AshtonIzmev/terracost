@@ -1,0 +1,4 @@
+.env
+terraform_plans/*
+__pycache__
+venv/
