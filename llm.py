@@ -2,11 +2,13 @@ from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import time
 import subprocess
 
 load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+DEBUG = os.getenv("DEBUG", "true").lower() == "true"
 
 class InfrastructurePlan(BaseModel):
     aws_terraform: str
@@ -19,6 +21,10 @@ def generate_terraform_plans(prompt: str, model="gpt-4o") -> InfrastructurePlan:
     system_prompt = """You are an expert in infrastructure as code. Given a description of infrastructure needs, 
     generate two separate Terraform configurations - one for AWS and one for Azure. 
     Return only the Terraform code without any explanations. The code should be valid and deployable."""
+
+    if DEBUG:
+        time.sleep(1)
+        return InfrastructurePlan(aws_terraform="aws terraform code", azure_terraform="azure terraform code")
     
     completion = client.beta.chat.completions.parse(
         model=model,
@@ -59,6 +65,10 @@ def compare_costs(initial_prompt: str, aws_cost: str, azure_cost: str, model="gp
     
     Please provide a detailed comparison and recommendation.
     """
+
+    if DEBUG:
+        time.sleep(1)
+        return CostComparison(analysis="cost analysis")
     
     completion = client.beta.chat.completions.parse(
         model=model,
@@ -73,6 +83,10 @@ def compare_costs(initial_prompt: str, aws_cost: str, azure_cost: str, model="gp
 def synthetize(prompt: str, model="gpt-4o-mini") -> str:
     system_prompt = """You are an expert in infrastructure as code. Given a description of infrastructure code OR cost analysis, 
     generate a very concise report to help the user understand what being described."""
+
+    if DEBUG:
+        time.sleep(1)
+        return "synthesis"
     
     completion = client.chat.completions.create(
         model=model,

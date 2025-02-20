@@ -10,6 +10,15 @@ TerraCost is a tool designed to help estimate and analyze costs for Terraform in
 - Historical cost tracking
 - Cost optimization recommendations
 
+## Screenshots
+
+![Main Interface](capture1.png)
+*Main interface showing infrastructure input and cost comparison*
+
+![Cost Analysis](capture2.png)
+*Detailed cost breakdown and analysis view*
+
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details. 
